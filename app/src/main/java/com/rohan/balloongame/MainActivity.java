@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.rohan.balloongame.utils.HighScoreHelper;
 import com.rohan.balloongame.utils.SimpleAlertDialog;
+import com.rohan.balloongame.utils.SoundHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
     private static final int MIN_ANIMATION_DURATION = 1000;
     private static final int MAX_ANIMATION_DURATION = 8000;
     private static final int NUMBER_OF_PINS = 5;
-    private static final int BALLOONS_PER_LEVEL = 3;
+    private static final int BALLOONS_PER_LEVEL = 10;
 
     private ViewGroup mContentView;
     private int[] mBalloonColors = new int[3];
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
     private boolean mGameStopped = true;
     private int mLevel, mScore, mPinsUsed;
     private int mBalloonsPopped;
+
+    private SoundHelper mSoundHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
 
         updateDisplay();
 
+        mSoundHelper = new SoundHelper(this);
+        mSoundHelper.prepareMusicPlayer(this);
+
     }
 
     private void setToFullScreen() {
@@ -122,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
 
         mGameStopped = false;
         startLevel();
+        mSoundHelper.playMusic();
     }
 
     private void startLevel() {
@@ -154,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
     @Override
     public void popBalloon(Balloon balloon, boolean userTouch) {
 
+        mSoundHelper.playSound();
+
         mBalloonsPopped++;
 
         mContentView.removeView(balloon);
@@ -182,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
     }
 
     private void gameOver(boolean allPinsUsed) {
+        mSoundHelper.pauseMusic();
         Toast.makeText(this, "Game Over!", Toast.LENGTH_SHORT).show();
 
         for (Balloon balloon : mBalloons) {
