@@ -6,4 +6,6 @@
     <string name="max_number">99</string>
     <string name="play_game">Play game</string>
 
+    <string name="popping_pin">Popping Pin</string>
+
 </resources>
