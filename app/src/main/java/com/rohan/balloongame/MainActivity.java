@@ -1,23 +1,44 @@
 package com.rohan.balloongame;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
+    private int[] mBalloonColors = new int[3];
+    private int mNextColor, mScreenWidth, mScreenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mContentView = (ViewGroup) findViewById(R.id.activity_main);
+        mBalloonColors[0] = Color.argb(255, 255, 0, 0);
+        mBalloonColors[1] = Color.argb(255, 0, 255, 0);
+        mBalloonColors[2] = Color.argb(255, 0, 0, 255);
 
         getWindow().setBackgroundDrawableResource(R.drawable.modern_background);
+
+        mContentView = (ViewGroup) findViewById(R.id.activity_main);
+        setToFullScreen();
+
+        ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
+        if(viewTreeObserver.isAlive()){
+             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                 @Override
+                 public void onGlobalLayout() {
+                     mContentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                     mScreenHeight = mContentView.getHeight();
+                     mScreenWidth = mContentView.getWidth();
+                 }
+             });
+        }
 
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,10 +51,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-                    Balloon b = new Balloon(MainActivity.this, 0xFFFF0000, 100);
+                    Balloon b = new Balloon(MainActivity.this, mBalloonColors[mNextColor], 100);
                     b.setX(motionEvent.getX());
-                    b.setY(motionEvent.getY());
+                    b.setY(mScreenHeight);
                     mContentView.addView(b);
+
+                    b.releaseBalloon(mScreenHeight, 3000);
+
+                    if(mNextColor + 1 == mBalloonColors.length)
+                        mNextColor = 0;
+                    else
+                        mNextColor++;
                 }
 
                 return false;
