@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rohan.balloongame.utils.HighScoreHelper;
+import com.rohan.balloongame.utils.SimpleAlertDialog;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
         }
     }
 
-    private void gameOver(boolean b) {
+    private void gameOver(boolean allPinsUsed) {
         Toast.makeText(this, "Game Over!", Toast.LENGTH_SHORT).show();
 
         for (Balloon balloon : mBalloons) {
@@ -190,6 +193,16 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
         mPlaying = false;
         mGameStopped = true;
         mGoButton.setText("Start Game");
+
+        if (allPinsUsed) {
+            if (HighScoreHelper.isTopScore(this, mScore)) {
+                HighScoreHelper.setTopScore(this, mScore);
+
+                SimpleAlertDialog dialog = SimpleAlertDialog.newInstance("New High Score!",
+                        String.format("Your new high score is %d", mScore));
+                dialog.show(getSupportFragmentManager(), null);
+            }
+        }
     }
 
     private void updateDisplay() {
