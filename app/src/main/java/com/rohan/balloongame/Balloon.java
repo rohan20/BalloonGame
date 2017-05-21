@@ -61,7 +61,9 @@ public class Balloon extends ImageView implements Animator.AnimatorListener, Val
 
     @Override
     public void onAnimationEnd(Animator animator) {
-
+        if (!mPopped) {
+            mListener.popBalloon(this, false);
+        }
     }
 
     @Override
@@ -87,10 +89,16 @@ public class Balloon extends ImageView implements Animator.AnimatorListener, Val
             mListener.popBalloon(this, true);
             mPopped = true;
             mAnimator.cancel();
-        } else {
-
         }
+
         return super.onTouchEvent(event);
+    }
+
+    public void setPopped(boolean popped) {
+        mPopped = popped;
+        if(popped){
+            mAnimator.cancel();
+        }
     }
 
     public interface BalloonListener {
