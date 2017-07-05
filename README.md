@@ -1,4 +1,8 @@
 # BalloonGame
+Google play link: https://play.google.com/store/apps/details?id=com.rohan.balloongame
+
+Please test and suggest improvements :)
+
 Simple balloon popping game for learning animations in Android
 
 <b>Screenshots</b>
