@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -21,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import static android.os.Build.VERSION_CODES.M;
 
 public class MainActivity extends AppCompatActivity implements Balloon.BalloonListener {
 
@@ -239,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
             while (mPlaying && balloonsLaunched < BALLOONS_PER_LEVEL) {
 
 //              Get a random horizontal position for the next balloon
-                Random random = new Random(new Date().getTime());
+                Random random = new Random();
                 int xPosition = random.nextInt(mScreenWidth - 200);
                 publishProgress(xPosition);
                 balloonsLaunched++;

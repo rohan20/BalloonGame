@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Balloon Game</string>
+    <string name="app_name">Balloon Popper</string>
 
     <string name="level_label">Level:</string>
     <string name="score_label">Score:</string>
