@@ -14,7 +14,7 @@ import com.rohan.balloongame.utils.PixelHelper;
  * Created by Rohan on 21-May-17.
  */
 
-public class Balloon extends ImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
+public class Balloon extends android.support.v7.widget.AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
 
     private ValueAnimator mAnimator;
     private BalloonListener mListener;
@@ -91,7 +91,8 @@ public class Balloon extends ImageView implements Animator.AnimatorListener, Val
             mAnimator.cancel();
         }
 
-        return super.onTouchEvent(event);
+//        return super.onTouchEvent(event);
+        return true;
     }
 
     public void setPopped(boolean popped) {

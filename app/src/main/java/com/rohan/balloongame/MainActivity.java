@@ -217,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements Balloon.BalloonLi
         mLevelDisplay.setText(String.valueOf(mLevel));
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        gameOver(false);
+    }
+
     private class BalloonLauncher extends AsyncTask<Integer, Integer, Void> {
 
         @Override
