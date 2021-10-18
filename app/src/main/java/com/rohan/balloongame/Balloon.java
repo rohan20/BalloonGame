@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
 import com.rohan.balloongame.utils.PixelHelper;
 
@@ -14,7 +13,7 @@ import com.rohan.balloongame.utils.PixelHelper;
  * Created by Rohan on 21-May-17.
  */
 
-public class Balloon extends android.support.v7.widget.AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
+public class Balloon extends androidx.appcompat.widget.AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
 
     private ValueAnimator mAnimator;
     private BalloonListener mListener;
