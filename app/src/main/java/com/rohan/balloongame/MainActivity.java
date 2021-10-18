@@ -3,7 +3,7 @@ package com.rohan.balloongame;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -17,7 +17,6 @@ import com.rohan.balloongame.utils.SimpleAlertDialog;
 import com.rohan.balloongame.utils.SoundHelper;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
